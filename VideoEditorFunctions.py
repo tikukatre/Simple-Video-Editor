@@ -1,5 +1,6 @@
 from moviepy import *
 from moviepy.editor import *
+import pandas as pd
 from ipywidgets import interact
 import ipywidgets as widgets
 from IPython.display import Video
@@ -170,4 +171,5 @@ def choose_clip():
     display(file)
     return file
 
-
+def fade_out(clip,time):
+    return clip.audio_fadeout(time)
