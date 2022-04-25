@@ -4,6 +4,7 @@ import pandas as pd
 from ipywidgets import interact
 import ipywidgets as widgets
 from IPython.display import Video
+import skimage.filters
 
 formats = {
     'Youtube Shorts (1920x1080)': [1920,1080],
@@ -126,7 +127,7 @@ def clip_resize(clip, platform):
         return clip.resize(height=h)
 
 def save_video(filename, clip):
-    clip.write_videofile(filename+".mp4")
+    clip.write_videofile(filename+".mp4",threads=4, progress_bar=False)
     return clip
 
 def conc_videos(clip1, clip2):
@@ -134,8 +135,27 @@ def conc_videos(clip1, clip2):
     #conc_clips.ipython_display(width=700)
     return conc_clips
 
-def save_clip_to_gif(filename,clip):
-    clip.write_gif(filename+".gif")
+def conc_video_img(clip,imgloc,duration,pos=2):
+    img = ImageClip(imgloc,duration=duration)
+
+    if(pos==2):
+        return concatenate_videoclips([clip,img],method='compose')
+    else:
+        return concatenate_videoclips([img,clip],method='compose')
+
+def blur(image):
+    """ Returns a blurred (radius=2 pixels) version of the image """
+    return skimage.filters.gaussian(image.astype(float), sigma=6)
+
+def video_as_bg(clip):
+    bg_clip =clip.fl_image( blur )
+    bg_clip.add_mask()
+    top_clip=clip.resize(width=1080)
+    return CompositeVideoClip([bg_clip,top_clip.set_position("center")]).crop(x1=1166.6, y1=0, x2=2246.6, y2=1920)
+
+
+def save_clip_to_gif(filename,clip,fps=30):
+    clip.write_gif(filename+".gif",fps=fps)
     # loading  gif
     gif = VideoFileClip(filename+".gif")
     # showing gif
@@ -171,5 +191,9 @@ def choose_clip():
     display(file)
     return file
 
-def fade_out(clip,time):
+def audio_fade_out(clip,time):
     return clip.audio_fadeout(time)
+
+def change_speed(clip,multiplier):
+    return clip.fx(vfx.speedx, multiplier)
+
