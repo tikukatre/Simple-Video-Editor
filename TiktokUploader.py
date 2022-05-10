@@ -9,7 +9,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import NoSuchElementException
 from webdriver_manager.chrome import ChromeDriverManager as CM
-
+#Original code from https://github.com/redianmarku/tiktok-autouploader
 
 print('=====================================================================================================')
 print(
@@ -20,8 +20,10 @@ print('Running bot now, get ready and login manually...')
 time.sleep(4)
 
 options = webdriver.ChromeOptions()
-options.add_argument("user-data-dir=C:\\Users\\Katre\\AppData\\Local\\Google\\Chrome\\User Data")
-bot = webdriver.Chrome(options=options, executable_path=CM(version="100.0.4896.60").install())
+#If you can't log into TikTok on the gerenrated Chrome instance, try the following code and
+#options.add_argument("user-data-dir= Add here path to your user data)
+#bot = webdriver.Chrome(options=options, executable_path=CM(version="100.0.4896.60").install())
+bot = webdriver.Chrome(options=options,  executable_path=CM().install())
 bot.set_window_size(1680, 900)
 
 bot.get('https://www.tiktok.com/login')
