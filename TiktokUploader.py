@@ -21,9 +21,9 @@ time.sleep(4)
 
 options = webdriver.ChromeOptions()
 #If you can't log into TikTok on the gerenrated Chrome instance, try the following code and
-#options.add_argument("user-data-dir= Add here path to your user data)
-#bot = webdriver.Chrome(options=options, executable_path=CM(version="100.0.4896.60").install())
-bot = webdriver.Chrome(options=options,  executable_path=CM().install())
+options.add_argument("user-data-dir= Add here path to your user data")
+# Example: options.add_argument("user-data-dir=C:\\Users\\Katre\\AppData\\Local\\Google\\Chrome\\User Data")
+bot = webdriver.Chrome(options=options, executable_path=CM(version="102.0.5005.61").install()) #Update the downloadable version according to the version of the Chrome you are using
 bot.set_window_size(1680, 900)
 
 bot.get('https://www.tiktok.com/login')

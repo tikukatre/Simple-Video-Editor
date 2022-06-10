@@ -31,9 +31,9 @@ def set_file_amount():
     )
     display(video_amount)
 
-    img_amount = widgets.Dropdown(options=['0', '1'],value='0',description='Image amount:',disabled=False,)
-    display(img_amount)
-
+    #img_amount = widgets.Dropdown(options=['0', '1'],value='0',description='Image amount:',disabled=False,)
+    #display(img_amount)
+    img_amount = 0
     return video_amount, img_amount
 
 
@@ -72,17 +72,23 @@ def set_file_locations(video_amount,img_amount):
             fail_loc.on_submit(addLocationImg)
 
     videoInputs(int(video_amount.value))
-    imgInputs(int(img_amount.value))
+    imgInputs(int(img_amount))
     return video_locations,img_locations
 
 
 def platform_dropdown():
-    platform = widgets.Dropdown(
-        options=['YouTube Shorts, TikTok, Instagram (1080 x 1920)','YouTube video (1920 x 1080)',
+    """
+    options=['YouTube Shorts, TikTok, Instagram (1080 x 1920)','YouTube video (1920 x 1080)',
                  'Horizontal to Vertical with filled edges (1080 x1920)',
                 'Twitter Square (720x720)',
                  'Twitter Landscape (1280x720)','Twitter Portrait (720x1280)',
-                  'Facebook (1280x1920)'],
+                  'Facebook (1280x1920)']
+    Some options are being fixed right now and will be disabled
+    """
+    platform = widgets.Dropdown(
+        options=['YouTube Shorts, TikTok, Instagram (1080 x 1920)','YouTube video (1920 x 1080)',
+                 'Horizontal to Vertical with filled edges (1080 x1920)'
+                ],
         value='YouTube Shorts, TikTok, Instagram (1080 x 1920)',
         description='Platform:',
         disabled=False,
